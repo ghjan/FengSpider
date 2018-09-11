@@ -1,3 +1,5 @@
+# _*_ coding: utf-8 _*_
+
 """
 title:抓取拉勾网的数据
 time:2018-01-22
@@ -45,6 +47,8 @@ def lagou(city, positionName, pageNo, pageSize):
     res = requests.get(url=req_url, headers=headers,
                        params=params, cookies=cookies)  # f发送请求
     res_json = res.json()  # 获取json数据
+    if not res_json.get('success'):
+        print(res_json.get('message'))
     result = res_json['content']['data']['page']['result']
     return result  # 返回json数据
 
