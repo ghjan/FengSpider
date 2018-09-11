@@ -48,7 +48,7 @@ def lagou(city, positionName, pageNo, pageSize):
                        params=params, cookies=cookies)  # f发送请求
     res_json = res.json()  # 获取json数据
     if not res_json.get('success'):
-        print(res_json.get('message'))
+        print(res_json)
     result = res_json['content']['data']['page']['result']
     return result  # 返回json数据
 
