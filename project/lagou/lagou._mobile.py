@@ -17,6 +17,8 @@ useragents = [
 cookies = {
 
 }
+
+
 # city城市
 # positionName 职位关键字
 # pageNo 页码
@@ -48,7 +50,7 @@ def lagou(city, positionName, pageNo, pageSize):
 
 
 # 解析返回的json
-def analyze(city, result,writer):
+def analyze(city, result, writer):
     filename = city + '.csv'
     for item in result:
         job = {
@@ -63,14 +65,15 @@ def analyze(city, result,writer):
 
 if __name__ == "__main__":
     city = "上海"
-    positionName = "数据挖掘"
+    positionNames = ("Python", "Angular", "Golang")
     pageSize = 15
-    filename = city+'.csv'
-    with open(filename,'a') as f:
-        fieldnames = ['city', 'companyFullName','companyName','positionName','salary']
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
-        writer.writeheader()
-        for i in range(10):
-            result = lagou(city, positionName, i, pageSize)
-            time.sleep(2)
-            analyze(city,result,writer)
+    for positionName in positionNames:
+        filename = city + '_' + positionName + '.csv'
+        with open(filename, 'a') as f:
+            fieldnames = ['city', 'companyFullName', 'companyName', 'positionName', 'salary']
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            writer.writeheader()
+            for i in range(10):
+                result = lagou(city, positionNames, i, pageSize)
+                time.sleep(2)
+                analyze(city, result, writer)
